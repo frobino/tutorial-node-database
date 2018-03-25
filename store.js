@@ -1,9 +1,16 @@
 /**
- * Mock the store in order to check that our API works.
+ * Use Knex to write the data to the "user" table in mySql
+ * whenever a createUser request is made.
  */
+
+const knex = require('knex')(require('./knexfile'))
+
 module.exports = {
   createUser({ username, password }) {
     console.log(`Add user ${username} with password ${password}`)
-    return Promise.resolve()
+    return knex('user').insert({
+      username,
+      password
+    })
   }
 }
